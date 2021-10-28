@@ -15,7 +15,7 @@ type NewMenuItem = {
   price: number | null;
 };
 
-const menu: MenuItem[] = [
+const initialMenu: MenuItem[] = [
   {
     id: 1,
     name: "Fried Chicken",
@@ -39,6 +39,7 @@ const blankMenuItem: NewMenuItem = {
 };
 
 export function App() {
+  const [menu, setMenu] = useState(initialMenu);
   const [newMenuItem, setNewMenuItem] = useState(blankMenuItem);
 
   function onChange(
@@ -46,10 +47,25 @@ export function App() {
   ) {
     setNewMenuItem({ ...newMenuItem, [event.target.id]: event.target.value });
   }
+
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setMenu([
+      ...menu,
+      {
+        id: menu.length + 1,
+        description: newMenuItem.description,
+        price: newMenuItem.price as number,
+        name: newMenuItem.name,
+      },
+    ]);
+    setNewMenuItem(blankMenuItem);
+  }
+
   return (
     <>
       <h1>Entree</h1>
-      <form>
+      <form onSubmit={onSubmit}>
         <Input
           id="name"
           name="name"
