@@ -1,7 +1,7 @@
-import ReactDom from 'react-dom';
-import { App } from './App';
+import ReactDom from "react-dom";
+import { App } from "./App";
 
 const adder = (x: number, y: number) => x + y;
-adder(4, 2); //= 
+adder(4, 2); //=
 
-ReactDom.render(<App />, document.getElementById('root'));
+ReactDom.render(<App />, document.getElementById("root"));
