@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getMenu } from "./api/menuApi";
 import styles from "./App.module.scss";
 import { Input } from "./Input";
 
@@ -24,6 +25,14 @@ const blankMenuItem: NewMenuItem = {
 export function App() {
   const [menu, setMenu] = useState<MenuItem[]>([]);
   const [newMenuItem, setNewMenuItem] = useState(blankMenuItem);
+
+  useEffect(() => {
+    async function _getMenu() {
+      const remoteMenu = await getMenu();
+      setMenu(remoteMenu);
+    }
+    _getMenu();
+  }, []); // dependency array - empty means no deps... so no reason to cause it to run again.
 
   function onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
