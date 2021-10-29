@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { addMenuItem } from "./api/menuApi";
 import { Input } from "./Input";
-import { MenuItem, NewMenuItem } from "./types/menuTypes";
+import { NewMenuItem } from "./types/menuTypes";
+import { useHistory } from "react-router-dom";
 
 const blankMenuItem: NewMenuItem = {
   name: "",
@@ -9,7 +11,7 @@ const blankMenuItem: NewMenuItem = {
 };
 
 export function Admin() {
-  const [menu, setMenu] = useState<MenuItem[]>([]);
+  const history = useHistory();
   const [newMenuItem, setNewMenuItem] = useState(blankMenuItem);
 
   function onChange(
@@ -18,19 +20,13 @@ export function Admin() {
     setNewMenuItem({ ...newMenuItem, [event.target.id]: event.target.value });
   }
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMenu([
-      ...menu,
-      {
-        id: menu.length + 1,
-        description: newMenuItem.description,
-        price: newMenuItem.price as number,
-        name: newMenuItem.name,
-      },
-    ]);
-    setNewMenuItem(blankMenuItem);
+    await addMenuItem(newMenuItem);
+    // redirect to home
+    history.push("/");
   }
+
   return (
     <>
       <h1>Entree Admin</h1>
