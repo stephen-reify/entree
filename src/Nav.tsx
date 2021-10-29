@@ -1,15 +1,20 @@
+import styles from "./Nav.module.scss";
+import { Link } from "react-router-dom";
+
 export function Nav() {
   return (
-    <ul>
-      <li>
-        <a href="/">Home</a>
-      </li>
-      <li>
-        <a href="/about">About</a>
-      </li>
-      <li>
-        <a href="/admin">Admin</a>
-      </li>
-    </ul>
+    <nav aria-label="Main">
+      <ul className={styles.navigation}>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/admin">Admin</Link>
+        </li>
+      </ul>
+    </nav>
   );
 }

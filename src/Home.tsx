@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMenu } from "./api/menuApi";
 import styles from "./Home.module.scss";
-
-type MenuItem = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-};
+import { MenuItem } from "./types/menuTypes";
 
 export function Home() {
   const [menu, setMenu] = useState<MenuItem[]>([]);

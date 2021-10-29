@@ -1,18 +1,6 @@
 import { useState } from "react";
 import { Input } from "./Input";
-
-type MenuItem = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-};
-
-type NewMenuItem = {
-  name: string;
-  description: string;
-  price: number | null;
-};
+import { MenuItem, NewMenuItem } from "./types/menuTypes";
 
 const blankMenuItem: NewMenuItem = {
   name: "",
