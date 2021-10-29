@@ -1,14 +1,8 @@
-import { useState, useEffect } from "react";
-import { getMenu } from "./api/menuApi";
-import styles from "./App.module.scss";
+import { useState } from "react";
 import { Input } from "./Input";
-
-type MenuItem = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-};
+import { Route } from "react-router-dom";
+import { Home } from "./Home";
+import { About } from "./About";
 
 type NewMenuItem = {
   name: string;
@@ -23,16 +17,7 @@ const blankMenuItem: NewMenuItem = {
 };
 
 export function App() {
-  const [menu, setMenu] = useState<MenuItem[]>([]);
   const [newMenuItem, setNewMenuItem] = useState(blankMenuItem);
-
-  useEffect(() => {
-    async function _getMenu() {
-      const remoteMenu = await getMenu();
-      setMenu(remoteMenu);
-    }
-    _getMenu();
-  }, []); // dependency array - empty means no deps... so no reason to cause it to run again.
 
   function onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,20 +27,28 @@ export function App() {
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMenu([
-      ...menu,
-      {
-        id: menu.length + 1,
-        description: newMenuItem.description,
-        price: newMenuItem.price as number,
-        name: newMenuItem.name,
-      },
-    ]);
+    // setMenu([
+    //   ...menu,
+    //   {
+    //     id: menu.length + 1,
+    //     description: newMenuItem.description,
+    //     price: newMenuItem.price as number,
+    //     name: newMenuItem.name,
+    //   },
+    // ]);
     setNewMenuItem(blankMenuItem);
   }
 
   return (
     <>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+
+      <Route path="/about">
+        <About />
+      </Route>
+
       <h1>Entree</h1>
       <form onSubmit={onSubmit}>
         <Input
@@ -83,20 +76,6 @@ export function App() {
         />
         <input type="submit" value="Save Menu Item" />
       </form>
-      {menu.map((item) => {
-        return (
-          <div key={item.id} className={styles.card}>
-            <dl>
-              <dt>{item.name}</dt>
-              <dd>
-                {item.description}
-                <br />
-                <i>${item.price}</i>
-              </dd>
-            </dl>
-          </div>
-        );
-      })}
     </>
   );
 }
