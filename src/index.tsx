@@ -1,7 +1,10 @@
 import ReactDom from "react-dom";
 import { App } from "./App";
+import { BrowserRouter } from "react-router-dom";
 
-const adder = (x: number, y: number) => x + y;
-adder(4, 2); //=
-
-ReactDom.render(<App />, document.getElementById("root"));
+ReactDom.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);
