@@ -10,7 +10,7 @@ const blankMenuItem: NewMenuItem = {
   price: null,
 };
 
-type Error = {
+type AdminError = {
   name: string;
   description: string;
   price: string;
@@ -26,14 +26,19 @@ export function Admin() {
   const errors = validate();
   const valid = Object.values(errors).every((v) => !v);
 
-  function validate(): Error {
-    const error: Error = {
+  function validate(): AdminError {
+    const error: AdminError = {
       name: "",
       description: "",
       price: "",
     };
 
-    if (!newMenuItem.name) error.name = "Name is required";
+    Object.keys(error).forEach((k) => {
+      const key = k as keyof NewMenuItem;
+      if (!newMenuItem[key]) error[key] = `${k} is required.`;
+    });
+    // if (newMenuItem.price == 0)
+    //   error.price = "Price must be greater than zero.";
 
     return error;
   }
@@ -74,7 +79,7 @@ export function Admin() {
           type="textarea"
           value={newMenuItem.description}
           onChange={onChange}
-          error={errors.description}
+          error={status !== "Idle" ? errors.description : ""}
         />
         <Input
           type="number"
@@ -83,7 +88,7 @@ export function Admin() {
           label="Price"
           value={newMenuItem.price?.toString() ?? ""}
           onChange={onChange}
-          error={errors.price}
+          error={status !== "Idle" ? errors.price : ""}
         />
         <input
           type="submit"

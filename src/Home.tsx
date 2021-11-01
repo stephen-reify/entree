@@ -12,10 +12,16 @@ export function Home() {
     }
     _getMenu();
   }, []); // dependency array - empty means no deps... so no reason to cause it to run again.
+
   return (
     <>
       <h1>Home</h1>
-      <h3>{menu.length} menu items found</h3>
+      {menu.length === 0 ? (
+        <p>"Loading..."</p>
+      ) : (
+        <h3>{menu.length} menu items found</h3>
+      )}
+
       {menu.map((item) => {
         return (
           <div key={item.id} className={styles.card}>
