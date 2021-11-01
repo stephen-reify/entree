@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Input } from "../Input";
+import { Input } from "../shared/Input";
 
 describe("Input", () => {
   it('should render an input type="text" and an attached label when type=text', () => {

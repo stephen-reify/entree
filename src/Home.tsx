@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMenu } from "./api/menuApi";
-import styles from "./Home.module.scss";
+import styles from "./styles/Home.module.scss";
 import { MenuItem } from "./types/menuTypes";
 
 export function Home() {
