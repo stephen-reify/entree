@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../styles/Input.module.scss";
 
 type InputProps = {
   id: string;
@@ -20,7 +21,7 @@ export function Input({
   onChange,
 }: InputProps) {
   return (
-    <label>
+    <label className={styles.input}>
       {label}
       {type === "textarea" ? (
         <textarea name={name} id={id} value={value} onChange={onChange} />
