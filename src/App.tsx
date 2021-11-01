@@ -3,6 +3,7 @@ import { Home } from "./Home";
 import { About } from "./About";
 import { Admin } from "./Admin";
 import { Nav } from "./Nav";
+import { ErrorBoundary } from "react-error-boundary";
 
 export function App() {
   return (
@@ -17,7 +18,9 @@ export function App() {
       </Route>
 
       <Route path="/admin">
-        <Admin />
+        <ErrorBoundary fallback={<>Sorry, the save failed. 🤦‍♀️</>}>
+          <Admin />
+        </ErrorBoundary>
       </Route>
     </>
   );
