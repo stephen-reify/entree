@@ -3,6 +3,7 @@ import styles from "../styles/Input.module.scss";
 
 type InputProps = {
   id: string;
+  error: string;
   label: string;
   name: string;
   onChange: (
@@ -17,6 +18,7 @@ export function Input({
   name,
   label,
   type = "text",
+  error,
   value,
   onChange,
 }: InputProps) {
@@ -34,6 +36,7 @@ export function Input({
           onChange={onChange}
         />
       )}
+      <div className={styles.error}>{error}</div>
     </label>
   );
 }

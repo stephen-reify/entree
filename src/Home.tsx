@@ -15,7 +15,7 @@ export function Home() {
   return (
     <>
       <h1>Home</h1>
-
+      <h3>{menu.length} menu items found</h3>
       {menu.map((item) => {
         return (
           <div key={item.id} className={styles.card}>
