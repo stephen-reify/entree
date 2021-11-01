@@ -21,6 +21,7 @@ type Status = "Idle" | "Saving" | "Submitted";
 export function Admin() {
   const history = useHistory();
   const [status, setStatus] = useState<Status>("Idle");
+  const [saveError, setSaveError] = useState<Error | null>(null);
   const [newMenuItem, setNewMenuItem] = useState(blankMenuItem);
 
   const errors = validate();
@@ -54,10 +55,16 @@ export function Admin() {
     setStatus("Submitted");
     if (!valid) return;
     setStatus("Saving");
-    await addMenuItem(newMenuItem);
+    try {
+      await addMenuItem(newMenuItem);
+    } catch (err: unknown) {
+      setSaveError(err as Error);
+    }
     // redirect to home
     history.push("/");
   }
+
+  if (saveError) throw saveError;
 
   return (
     <>
